@@ -2,34 +2,36 @@ package com.exemple.eventapi.entity;
 
 import jakarta.persistence.*;
 
-/**
- * Entité représentant un participant inscrit à un événement.
- * Chaque participant possède un nom, un email et est lié à un événement.
- */
 @Entity
+@Table(name = "participants")
 public class Participant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nom;
-    private String email;
-
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
-    // --- Getters et Setters ---
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ParticipantStatus status = ParticipantStatus.REGISTERED;
+
+    // --- Getters & Setters ---
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
     public Event getEvent() { return event; }
     public void setEvent(Event event) { this.event = event; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+
+    public ParticipantStatus getStatus() { return status; }
+    public void setStatus(ParticipantStatus status) { this.status = status; }
 }

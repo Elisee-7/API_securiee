@@ -11,5 +11,6 @@ public record EventDTO(
     String description,
     LocalDate date,
     String lieu,
-    int capacite
+    int capacite,
+     Long organizerId
 ) {}

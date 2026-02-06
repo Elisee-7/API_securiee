@@ -35,4 +35,15 @@ public class JwtService {
                 .build()
                 .parseClaimsJws(token);
     }
+
+    public String refreshToken(String token) {
+        Jws<Claims> claims = parseToken(token);
+        String username = claims.getBody().getSubject();
+        String role = claims.getBody().get("role", String.class);
+        return generateToken(username, role);
+    }
+
+    
+
+    
 }
